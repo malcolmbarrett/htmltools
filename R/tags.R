@@ -353,7 +353,7 @@ tagSetChildren <- function(tag, ..., list = NULL) {
 #'   tag("strong", "Super strong", .noWS="outside")
 #' )
 #' cat(as.character(oneline))
-tag <- function(`_tag_name`, varArgs, .noWS=NULL) {
+tag <- function(`_tag_name`, varArgs, .noWS=NULL, voidTag=NULL) {
   validateNoWS(.noWS)
   # Get arg names; if not a named list, use vector of empty strings
   varArgsNames <- names(varArgs)
@@ -380,7 +380,7 @@ tag <- function(`_tag_name`, varArgs, .noWS=NULL) {
   }
 
   # Return tag data structure
-  structure(st, class = "shiny.tag")
+  structure(st, class = "shiny.tag", void.tag = voidTag)
 }
 
 isTagList <- function(x) {
@@ -393,6 +393,10 @@ validateNoWS <- function(.noWS){
   if (!all(.noWS %in% noWSOptions)){
     stop("Invalid .noWS option(s) '", paste(.noWS, collapse="', '") ,"' specified.")
   }
+}
+
+is.void.tag <- function(x) {
+  isTRUE(attr(x, "void.tag"))
 }
 
 #' @include utils.R
@@ -497,7 +501,7 @@ tagWrite <- function(tag, textWriter, indent=0, eol = "\n") {
     # (see: http://dev.w3.org/html5/spec/single-page.html#void-elements)
     if (tag$name %in% c("area", "base", "br", "col", "command", "embed", "hr",
       "img", "input", "keygen", "link", "meta", "param",
-      "source", "track", "wbr")) {
+      "source", "track", "wbr") || is.void.tag(tag)) {
       textWriter$write("/>")
     }
     else {
