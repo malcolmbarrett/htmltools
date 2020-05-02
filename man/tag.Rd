@@ -25,7 +25,7 @@ tagAppendChildren(tag, ..., list = NULL)
 
 tagSetChildren(tag, ..., list = NULL)
 
-tag(`_tag_name`, varArgs, .noWS = NULL)
+tag(`_tag_name`, varArgs, .noWS = NULL, voidTag = NULL)
 }
 \arguments{
 \item{...}{Unnamed items that comprise this list of tags.}
@@ -51,6 +51,8 @@ contain tags, text nodes, and HTML.}
 normally be written around this tag. Valid options include \code{before},
 \code{after}, \code{outside}, \code{after-begin}, and \code{before-end}.
 Any number of these options can be specified.}
+
+\item{voidTag}{Logical. Is the tag a self-closed void tag?}
 }
 \value{
 An HTML tag object that can be rendered as HTML using

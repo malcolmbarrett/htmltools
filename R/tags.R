@@ -324,6 +324,7 @@ tagSetChildren <- function(tag, ..., list = NULL) {
 #'   children are tags, single-character character vectors (which become text
 #'   nodes), and raw HTML (see \code{\link{HTML}}). You can also pass lists that
 #'   contain tags, text nodes, and HTML.
+#' @param voidTag Logical. Is the tag a self-closed void tag?
 #' @param tag A tag to append child elements to.
 #' @param child A child element to append to a parent tag.
 #' @param ...  Unnamed items that comprise this list of tags.
